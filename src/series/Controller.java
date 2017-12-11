@@ -14,7 +14,22 @@ public class Controller {
 	}
 
 	public void add() {
-		new ModifView(0,m);
+		new ModifView(m);
+		
+	}
+
+	public void remove(String selectedItem) {
+		m.remove(selectedItem);
+		
+	}
+
+	public void edit(String selectedItem) {
+		new ModifView(m,selectedItem);
+		
+	}
+
+	public void close() throws Exception {
+		m.close();
 		
 	}
 

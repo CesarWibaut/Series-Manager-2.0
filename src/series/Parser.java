@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Parser {
-	String csvFile ;
+	private String csvFile="src\\resources\\series.csv" ;
 
-	BufferedReader br = null;
-	String line = "";
-	String csvSplitBy = ",";
+	
+	private String line = "";
+	private String csvSplitBy = ",";
 
 	public ArrayList<Serie> getSeries() throws Exception{
 		ArrayList<Serie> list = new ArrayList<Serie>();
-		BufferedReader reader = new BufferedReader(new FileReader("src\\resources\\series.csv"));
+		BufferedReader reader = new BufferedReader(new FileReader(csvFile));
 		Scanner scanner = null;
 		int index = -1;
 		while((line=reader.readLine())!=null) {
@@ -54,5 +54,15 @@ public class Parser {
 		}
 		reader.close();
 		return list;
+	}
+
+	public void close(ArrayList<Serie> series) throws Exception {
+		FileWriter writer = new FileWriter(csvFile);
+		for(Serie s : series) {
+			writer.write(s.getNom()+","+s.getNbEpisodes()+","+s.getDureeAvg()+","+s.getNbVus()+System.lineSeparator());
+		}
+		writer.flush();
+		writer.close();
+		
 	}
 }
