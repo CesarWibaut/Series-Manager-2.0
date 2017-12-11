@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Parser {
-	private String csvFile="src\\resources\\series.csv" ;
+	private String csvFile="series.csv" ;
 
 	
 	private String line = "";
