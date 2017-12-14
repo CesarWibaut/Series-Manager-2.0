@@ -49,7 +49,8 @@ public class View extends Stage implements Observer {
 		Text nb6 = new Text("Temps restant : ");
 		nb7 = new Text("0");
 		
-		tField = new TextField("");
+		tField = new TextField("Search...");
+		tField.setOpacity(0.2);
 		
 		
 
@@ -89,11 +90,11 @@ public class View extends Stage implements Observer {
 		this.setScene(scene);
 
 		this.getIcons().add(new Image(View.class.getResourceAsStream("images.png")));
-
+		
 		m.init();
 
 		show();
-
+		
 		lView.setOnMouseClicked(e -> {
 			c.listClicked(lView.getSelectionModel().getSelectedItem());
 		});
@@ -115,6 +116,12 @@ public class View extends Stage implements Observer {
 		
 		tField.setOnKeyReleased(e->{
 				c.search(tField.getText());
+		});
+		
+		tField.setOnMouseClicked(e->{
+			if(tField.getOpacity()==0.2)
+				tField.setText("");
+				tField.setOpacity(1);
 		});
 		
 		

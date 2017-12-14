@@ -82,6 +82,8 @@ public class Model extends Observable {
 		for (Serie s : series) {
 			list.add(s.getNom());
 		}
+		sort();
+		list.add("Total");
 	}
 
 	private void sort() {
@@ -189,9 +191,10 @@ public class Model extends Observable {
 						list.add(s.getNom());
 					}
 				}
+				sort();
 			}
-			sort();
-			list.add("Total");
+			
+			
 			setChanged();
 			notifyObservers("oui");
 		}
