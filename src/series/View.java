@@ -8,7 +8,9 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -21,7 +23,7 @@ public class View extends Stage implements Observer {
 	private Text nb3;
 	private Text nb5;
 	private Text nb7;
-
+	private TextField tField;
 	private Model m;
 	private Stage tmp;
 	public View(Model m) throws Exception {
@@ -32,6 +34,7 @@ public class View extends Stage implements Observer {
 		lView = new ListView<String>();
 
 		VBox vbox = new VBox();
+		VBox vbox2 = new VBox();
 		HBox hbox1 = new HBox();
 		HBox hbox2 = new HBox();
 		HBox hbox3 = new HBox();
@@ -45,6 +48,10 @@ public class View extends Stage implements Observer {
 		nb5 = new Text("0");
 		Text nb6 = new Text("Temps restant : ");
 		nb7 = new Text("0");
+		
+		tField = new TextField("");
+		
+		
 
 		nb.setFont(Font.font(25));
 		nb1.setFont(Font.font(25));
@@ -59,6 +66,8 @@ public class View extends Stage implements Observer {
 		hbox2.getChildren().addAll(nb2, nb3);
 		hbox3.getChildren().addAll(nb4, nb5);
 		hbox4.getChildren().addAll(nb6, nb7);
+		
+		vbox2.getChildren().addAll(tField, lView);
 
 		Button add = new Button("ADD");
 		Button edit = new Button("EDIT");
@@ -69,7 +78,7 @@ public class View extends Stage implements Observer {
 
 		hbox5.setPadding(new Insets(200, 0, 0, 10));
 
-		hbox.getChildren().addAll(lView, vbox);
+		hbox.getChildren().addAll(vbox2, vbox);
 
 		this.setWidth(600);
 
@@ -103,6 +112,11 @@ public class View extends Stage implements Observer {
 			if (!lView.getSelectionModel().getSelectedItem().equals("Total"))
 				c.edit(lView.getSelectionModel().getSelectedItem());
 		});
+		
+		tField.setOnKeyReleased(e->{
+				c.search(tField.getText());
+		});
+		
 		
 		setOnCloseRequest(e->{
 			afficheEnregistrement();
@@ -150,7 +164,7 @@ public class View extends Stage implements Observer {
 
 	private void lViewReload() {
 		lView.getItems().clear();
-		lView.getItems().addAll(FXCollections.observableArrayList(m.getNoms()));
+		lView.getItems().addAll(FXCollections.observableArrayList(m.getList()));
 
 	}
 

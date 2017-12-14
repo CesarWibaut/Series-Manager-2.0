@@ -33,4 +33,9 @@ public class Controller {
 		
 	}
 
+	public void search(String text) {
+		m.search(text);
+		
+	}
+
 }

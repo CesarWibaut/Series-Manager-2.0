@@ -9,6 +9,7 @@ public class Model extends Observable {
 	private ArrayList<Serie> series;
 	private int nbEpisodes = 0, dureeAvg = 0, nbVus = 0;
 	private String tpsRestant = "0 jours 0 h 0 m";
+	private ArrayList<String> list;
 
 	public Serie getSerie(String s) {
 		for (Serie se : series) {
@@ -17,6 +18,10 @@ public class Model extends Observable {
 			}
 		}
 		return null;
+	}
+
+	public ArrayList<String> getList() {
+		return list;
 	}
 
 	public String getTpsRestant() {
@@ -52,12 +57,13 @@ public class Model extends Observable {
 	}
 
 	public Model() {
-
+		list = new ArrayList<String>();
 	}
 
 	public void init() throws Exception {
 		Parser p = new Parser();
 		setSeries(p.getSeries());
+		search("");
 		setChanged();
 		notifyObservers("oui");
 	}
@@ -70,36 +76,39 @@ public class Model extends Observable {
 		this.series = series;
 	}
 
-	public ArrayList<String> getNoms() {
+	public void getNoms() {
+
+		list.clear();
+		for (Serie s : series) {
+			list.add(s.getNom());
+		}
+	}
+
+	private void sort() {
 		class StringComparator implements Comparator<String> {
 			public int compare(String obj1, String obj2) {
 				return obj1.compareToIgnoreCase(obj2);
 			}
 		}
-		ArrayList<String> l = new ArrayList<String>();
-		for (Serie s : series) {
-			l.add(s.getNom());
-		}
-		l.sort(new StringComparator());
-		
-		
-		l.add("Total");
-		return l;
+		list.sort(new StringComparator());
+
 	}
 
 	public void click(String selectedItem) {
-		if (selectedItem.equals("Total")) {
-			selectTotal();
-		} else {
-			for (Serie s : series) {
-				if (s.getNom().equals(selectedItem)) {
-					setNbEpisodes(s.getNbEpisodes());
-					setDureeAvg(s.getDureeAvg());
-					setNbVus(s.getNbVus());
-					setTpsRestant(s.getDureeRestanteString());
-					setChanged();
-					notifyObservers();
-					break;
+		if (selectedItem != null) {
+			if (selectedItem.equals("Total")) {
+				selectTotal();
+			} else {
+				for (Serie s : series) {
+					if (s.getNom().equals(selectedItem)) {
+						setNbEpisodes(s.getNbEpisodes());
+						setDureeAvg(s.getDureeAvg());
+						setNbVus(s.getNbVus());
+						setTpsRestant(s.getDureeRestanteString());
+						setChanged();
+						notifyObservers();
+						break;
+					}
 				}
 			}
 		}
@@ -144,11 +153,6 @@ public class Model extends Observable {
 
 	}
 
-	public void edit(String selectedItem) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void edit(String text, String text2, String text3, String text4) {
 		for (Serie s : series) {
 			if (s.getNom().equals(text)) {
@@ -170,6 +174,27 @@ public class Model extends Observable {
 	public void close() throws Exception {
 		Parser p = new Parser();
 		p.close(series);
+
+	}
+
+	public void search(String text) {
+		if (text != null) {
+			list.clear();
+			if (text.length() == 0)
+				getNoms();
+			else {
+				for (Serie s : series) {
+					if (s.getNom().length() >= text.length()
+							&& s.getNom().substring(0, text.length()).toLowerCase().equals(text.toLowerCase())) {
+						list.add(s.getNom());
+					}
+				}
+			}
+			sort();
+			list.add("Total");
+			setChanged();
+			notifyObservers("oui");
+		}
 
 	}
 }
