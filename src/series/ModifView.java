@@ -62,7 +62,7 @@ public class ModifView {
 		if (!nbEp.getText().equals("") && !duree.getText().equals("") && !vus.getText().equals("")) {
 			if (nbEp.getText().matches("[0-9]*") && duree.getText().matches("[0-9]*")
 					&& vus.getText().matches("[0-9]*")) {
-				if (Integer.valueOf(nbEp.getText()) > Integer.valueOf(vus.getText())) {
+				if (Integer.valueOf(nbEp.getText()) >= Integer.valueOf(vus.getText())) {
 					m.edit(nom.getText(), nbEp.getText(), duree.getText(), vus.getText());
 					stage.close();
 				} else {
@@ -82,7 +82,7 @@ public class ModifView {
 				&& !vus.getText().equals("")) {
 			if (nbEp.getText().matches("[0-9]*") && duree.getText().matches("[0-9]*")
 					&& vus.getText().matches("[0-9]*")) {
-				if (Integer.valueOf(nbEp.getText()) > Integer.valueOf(vus.getText())) {
+				if (Integer.valueOf(nbEp.getText()) >= Integer.valueOf(vus.getText())) {
 					m.add(nom.getText(), nbEp.getText(), duree.getText(), vus.getText());
 					stage.close();
 				} else {

@@ -139,6 +139,8 @@ public class Model extends Observable {
 	public void add(String text, String text2, String text3, String text4) {
 		Serie tmp = new Serie(text, Integer.valueOf(text2), Integer.valueOf(text3), Integer.valueOf(text4));
 		series.add(tmp);
+		list.add(text);
+		search("");
 		setChanged();
 		notifyObservers("oui");
 	}
@@ -146,7 +148,9 @@ public class Model extends Observable {
 	public void remove(String selectedItem) {
 		for (Serie s : series) {
 			if (s.getNom().equals(selectedItem)) {
+				list.remove(s.getNom());
 				series.remove(s);
+				
 				break;
 			}
 		}
