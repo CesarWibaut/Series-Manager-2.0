@@ -1,8 +1,10 @@
-package series;
+package view;
 
 
 import java.util.Observable;
 import java.util.Observer;
+
+import controller.Controller;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -15,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Model;
 
 public class View extends Stage implements Observer {
 	private ListView<String> lView;

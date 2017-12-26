@@ -1,4 +1,4 @@
-package series;
+package model;
 
 public class Serie {
 	private String nom;

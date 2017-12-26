@@ -1,4 +1,7 @@
-package series;
+package controller;
+
+import model.Model;
+import view.ModifView;
 
 public class Controller {
 	

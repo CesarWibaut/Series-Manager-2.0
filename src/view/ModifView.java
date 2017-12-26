@@ -1,4 +1,4 @@
-package series;
+package view;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -9,6 +9,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Model;
+import model.Serie;
 
 public class ModifView {
 
